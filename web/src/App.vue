@@ -19,7 +19,7 @@ useHead({
       <n-message-provider>
         <AppHeader />
 
-        <div class="w-full h-full p-4">
+        <div class="w-full h-[calc(100vh-65px)] p-4">
           <router-view v-slot="{ Component }">
             <transition name="fade" appear mode="out-in">
               <component :is="Component" />
