@@ -2,6 +2,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from helpers.generate import generate_data
+
 app = Flask(__name__)
 
 CORS(app)
@@ -10,7 +12,23 @@ CORS(app)
 @app.route("/")
 def hello():
     """Return a friendly HTTP greeting."""
-    return "Hello World!"
+    return "Hello! :)"
+
+
+@app.route("/generate", methods=["POST"])
+def generate():
+    """Generate neuron visualizations"""
+    try:
+        data = request.get_json()
+
+        modules = data["modules"]
+
+        response = generate_data(modules)
+
+        return jsonify(response)
+    # pylint: disable=broad-except
+    except Exception as error:
+        return error
 
 
 @app.route("/cache-me")
