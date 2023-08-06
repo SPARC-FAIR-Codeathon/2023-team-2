@@ -73,6 +73,16 @@ const init = () => {
         style: {
           label: 'data(id)'
         }
+      },
+      {
+        selector: 'edge',
+        style: {
+          width: 2,
+          'line-color': '#ccc',
+          'target-arrow-color': '#000',
+          'target-arrow-shape': 'triangle',
+          'curve-style': 'bezier'
+        }
       }
     ]
   })
