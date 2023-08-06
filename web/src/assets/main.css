@@ -1,35 +1,161 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-weight: normal;
+.n-menu-item-content-header > a {
+  @apply flex grow;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.n-base-select-option__content {
+  @apply flex w-full flex-grow;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+.n-base-select-menu .n-base-select-option.n-base-select-option--show-checkmark {
+  @apply pr-2;
+}
+
+.n-step-content-header__title {
+  @apply text-sm;
+}
+
+@layer base {
+  /* inter var - latin */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    src: url('/fonts/inter-var-latin.woff2') format('woff2');
   }
-}
 
-@media (min-width: 1024px) {
+  h1 {
+    @apply !font-primary text-2xl font-bold;
+  }
+
+  h2 {
+    @apply !font-primary text-xl font-bold;
+  }
+
+  h3 {
+    @apply !font-primary text-lg font-bold;
+  }
+
+  h4 {
+    @apply !font-primary text-base font-bold;
+  }
+
   body {
-    display: flex;
-    place-items: center;
+    @apply !font-primary text-base;
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  .layout {
+    /* 750px */
+    /* max-width: 43.75rem; */
+
+    /* 1100px */
+    max-width: 68.75rem;
+    @apply mx-auto w-11/12;
   }
+
+  .bg-dark a.custom-link {
+    @apply border-gray-200 hover:border-gray-200/0;
+  }
+
+  /* Class to adjust with sticky footer */
+  .min-h-main {
+    @apply min-h-[calc(100vh-56px)];
+  }
+}
+
+@layer utilities {
+  .animated-underline {
+    background-image: linear-gradient(#33333300, #33333300),
+      linear-gradient(to right, var(--clr-primary-400), var(--clr-primary-500));
+    background-size:
+      100% 2px,
+      0 2px;
+    background-position:
+      100% 100%,
+      0 100%;
+    background-repeat: no-repeat;
+    transition: 0.3s ease;
+    transition-property: background-size, color, background-color, border-color;
+  }
+  .animated-underline:hover,
+  .animated-underline:focus-visible {
+    background-size:
+      0 2px,
+      100% 2px;
+  }
+
+  .bg-primary {
+    @apply bg-primary-500;
+  }
+
+  .bg-secondary {
+    @apply bg-secondary-500;
+  }
+
+  .border-primary {
+    @apply border-primary-500;
+  }
+
+  .border-secondary {
+    @apply border-secondary-500;
+  }
+
+  .text-primary {
+    @apply text-primary-500;
+  }
+
+  .text-secondary {
+    @apply text-secondary-500;
+  }
+
+  .n-card.n-modal.custom-card {
+    width: 900px;
+  }
+
+  .back-next-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .steps .n-steps .n-step {
+    @apply flex-none 2xl:flex-1;
+  }
+
+  .steps .n-step-indicator,
+  .n-step-content {
+    margin-top: 1rem;
+  }
+}
+
+/* ------------------------------------------
+Transition styles for <transition />
+--------------------------------------------- */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  /* transform: translateY(-20px); */
+}
+
+.lightfadeleft-enter-active,
+.lightfadeleft-leave-active {
+  transition: all 0.3s ease-in-out;
+  overflow-x: hidden;
+  opacity: 0.7;
+}
+
+.lightfadeleft-enter-from,
+.lightfadeleft-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
