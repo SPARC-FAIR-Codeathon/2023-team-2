@@ -4,6 +4,7 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["node"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {

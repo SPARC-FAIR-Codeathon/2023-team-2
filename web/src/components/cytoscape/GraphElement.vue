@@ -2,6 +2,13 @@
 import cytoscape from 'cytoscape'
 import { onMounted } from 'vue'
 
+const props = defineProps({
+  visualizationData: {
+    type: Object,
+    required: true
+  }
+})
+
 const DrawerActive = ref(false)
 
 const DrawerData = ref({
@@ -12,53 +19,7 @@ const DrawerData = ref({
 const init = () => {
   const cy = cytoscape({
     container: document.getElementById('cy'),
-    elements: {
-      nodes: [
-        { data: { id: 'a' } },
-        { data: { id: 'b', parent: 'parent' } },
-        { data: { id: 'c', parent: 'parent' } },
-        { data: { id: 'd' } },
-        { data: { id: 'e' } },
-        { data: { id: 'parent' } }
-      ],
-      edges: [
-        {
-          data: {
-            id: 'ab',
-            source: 'a',
-            target: 'b'
-          }
-        },
-        {
-          data: {
-            id: 'bc',
-            source: 'b',
-            target: 'd'
-          }
-        },
-        {
-          data: {
-            id: 'cd',
-            source: 'c',
-            target: 'a'
-          }
-        },
-        {
-          data: {
-            id: 'de',
-            source: 'd',
-            target: 'e'
-          }
-        },
-        {
-          data: {
-            id: 'ea',
-            source: 'e',
-            target: 'a'
-          }
-        }
-      ]
-    },
+    elements: props.visualizationData as cytoscape.ElementDefinition[],
     layout: {
       name: 'cose',
       animate: true

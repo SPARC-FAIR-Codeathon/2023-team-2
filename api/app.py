@@ -1,4 +1,6 @@
 """This is the main entrypoint for the flask app"""
+import json
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -21,11 +23,12 @@ def generate():
     try:
         data = request.get_json()
 
-        modules = data["modules"]
+        neurons = data["neurons"]
 
-        response = generate_data(modules)
+        response = generate_data(neurons)
 
         return jsonify(response)
+
     # pylint: disable=broad-except
     except Exception as error:
         return error

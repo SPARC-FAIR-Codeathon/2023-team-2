@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { API_URL } from '@/utils/constants'
+
 const neuronModules = ref<string[]>([])
 const showVisualization = ref(false)
 const loading = ref(false)
+
+const visualizationData = ref({})
 
 const { info, error } = useMessage()
 
@@ -9,18 +13,15 @@ const submitModels = async () => {
   loading.value = true
   showVisualization.value = false
 
-  const data = []
+  const neurons: string[] = []
 
   for (const neuron of neuronModules.value) {
-    data.push({
-      data: {
-        id: neuron,
-        label: neuron
-      }
-    })
+    if (neuron === '') continue
+
+    neurons.push(neuron)
   }
 
-  if (data.length === 0) {
+  if (neurons.length === 0) {
     error('Please add at least one neuron module')
 
     // loading.value = false
@@ -28,14 +29,28 @@ const submitModels = async () => {
     // return
   }
 
-  const length = neuronModules.value.length
+  // remove duplicates
+  const uniqueNeurons = [...new Set(neurons)]
+
+  const length = uniqueNeurons.length
 
   info(`Generating visualization for ${length} neuron${length > 1 ? 's' : ''}`)
 
-  setTimeout(() => {
-    /**
-     * * Simulate the data being fetched from the server
-     */
+  setTimeout(async () => {
+    const response = await fetch(`${API_URL}/generate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        neurons: uniqueNeurons
+      })
+    })
+
+    const json = await response.json()
+
+    visualizationData.value = json
+
     loading.value = false
     showVisualization.value = true
   }, 10)
@@ -74,7 +89,7 @@ const submitModels = async () => {
     <n-collapse-transition :show="showVisualization">
       <n-divider />
 
-      <GraphElement />
+      <GraphElement :visualizationData="visualizationData" :key="visualizationData" />
     </n-collapse-transition>
   </div>
 </template>
