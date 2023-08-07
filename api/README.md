@@ -4,7 +4,7 @@ This folder is about the API that connects frontend to backend for the neuron da
 
 ## Folder Structure
 
-`helpers` returns the data of neurons for the frontend.
+`helpers` has files that help perform the API's connection.
 
 ## File Structure
 
