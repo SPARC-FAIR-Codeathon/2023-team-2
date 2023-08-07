@@ -1,4 +1,4 @@
-# Data for Frontend
+# Helper for Frontend
 
 `generate.py` generates and returns the data of neurons for the frontend. 
 
